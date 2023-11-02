@@ -1,0 +1,3 @@
+/Users/vigowalker/Desktop/TEstibng2y/TEstibng2y/build/CMakeFiles/Stickman.dir
+/Users/vigowalker/Desktop/TEstibng2y/TEstibng2y/build/CMakeFiles/edit_cache.dir
+/Users/vigowalker/Desktop/TEstibng2y/TEstibng2y/build/CMakeFiles/rebuild_cache.dir
