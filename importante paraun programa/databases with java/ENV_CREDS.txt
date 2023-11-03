@@ -1,0 +1,6 @@
+in a file .env put this:
+
+MONGO_DATABASE=movie-api-db
+MONGO_USER=vigopaul05
+MONGO_PASSWORD=lagunaVerde03
+MONGO_CLUSTER=cluster0.ornnrtz.mongodb.net

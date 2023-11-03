@@ -1,0 +1,5 @@
+var uri = "https://www.theshadowtech.com/";
+var psi = new System.Diagnostics.ProcessStartInfo();
+psi.UseShellExecute = true;
+psi.FileName = uri;
+System.Diagnostics.Process.Start(psi);

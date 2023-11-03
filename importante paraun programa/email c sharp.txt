@@ -1,0 +1,24 @@
+using System.Net;
+using System.Net.Mail;            
+
+using(SmtpClient client = new SmtpClient("smtp.gmail.com", 587))
+            {
+                Console.Write("enviar email");
+                string yourMessageBody = Console.ReadLine();
+
+
+                string userName = "vigopaul05@gmail.com";
+                string password = "ttwoccuxdeaovvjq";
+                string Destination = "shadowtech091@gmail.com";
+                string YourMessageSubject = "contacto desde ShadowEditor";
+
+                client.EnableSsl = true;
+                client.DeliveryMethod = SmtpDeliveryMethod.Network;
+                client.UseDefaultCredentials = false;
+                client.Credentials = new NetworkCredential(userName, password);
+                MailMessage msgObj = new MailMessage();
+                msgObj.To.Add(Destination);
+                msgObj.From = new MailAddress(userName);
+                msgObj.Subject = YourMessageSubject;
+                msgObj.Body = yourMessageBody;
+                client.Send(msgObj); }

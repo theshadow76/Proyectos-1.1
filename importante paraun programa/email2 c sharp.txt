@@ -1,0 +1,4 @@
+string chattextbox;
+string chattextbox2;
+chattextbox = textBox1.Text;
+chattextbox2 = richTextBox1.Text;

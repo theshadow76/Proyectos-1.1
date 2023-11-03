@@ -1,0 +1,1 @@
+MessageBox.Show("Mensaje solo informativo con botón Aceptar","Titulo Ventana");

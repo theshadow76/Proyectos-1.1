@@ -1,0 +1,4 @@
+put this in aplication.properties file in your project just under resources.
+
+spring.data.mongodb.database=movie-api-db
+spring.data.mongodb.uri=mongodb+srv://vigopaul05:lagunaVerde03@cluster0.ornnrtz.mongodb.net

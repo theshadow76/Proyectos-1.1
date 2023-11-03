@@ -1,0 +1,9 @@
+//registrar todo los datos en un txt
+            TextWriter txt = new StreamWriter("F:\\Shadow Tech Software\\visual studio 2019\\bank 1\\bank 1\\Login - Register\\recurses\\Login Info.txt");
+            txt.Write(textBox1.Text);
+            txt.Close();
+
+            //mismo para la pwd
+            TextWriter txt_pwd = new StreamWriter("F:\\Shadow Tech Software\\visual studio 2019\\bank 1\\bank 1\\Login - Register\\recurses\\password info.txt");
+            txt_pwd.Write(textBox2.Text);
+            txt_pwd.Close();

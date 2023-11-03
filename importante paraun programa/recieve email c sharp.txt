@@ -1,0 +1,13 @@
+ string myemail = "vigopaul05@gmail.com";
+            string password = "vigoproxd07";
+            ImapClient IC;
+            static void Main(string[] args, string myemail, string password, ImapClient iC)
+            {
+                iC = new ImapClient("imap.gmail.com", myemail, password, AuthMethods.Login, 993, true);
+
+                iC.SelectMailbox("INBOX");
+                var email = iC.GetMessage(0);
+                Console.WriteLine(email.Subject);
+                iC.DeleteMessage(email);
+                Console.ReadLine();
+            }

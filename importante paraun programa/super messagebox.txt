@@ -1,0 +1,16 @@
+            string message = "Do you want to close this window? or go to a surprise?";
+            string title = "redirect?";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons);
+            if (result == DialogResult.Yes)
+            {
+                var uri = "https://pcfericos.cl/";
+                var psi = new System.Diagnostics.ProcessStartInfo();
+                psi.UseShellExecute = true;
+                psi.FileName = uri;
+                System.Diagnostics.Process.Start(psi);
+            }
+            else
+            {
+                this.Close();
+            }

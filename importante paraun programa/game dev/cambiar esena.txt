@@ -1,0 +1,2 @@
+using UnityEngine.SceneManagement;
+SceneManager.LoadScene("MainScreen");
