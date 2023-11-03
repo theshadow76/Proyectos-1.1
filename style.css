@@ -1,0 +1,54 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html{
+    background-color: #EEEEEE;
+}
+.panel-one{
+    background-color: #F5F5F5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+}
+.panel-two{
+    background-color: #468EC7;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12%;
+    height: 8%;
+    z-index: 1;
+}
+.panel-three{
+    background-color: #003458;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8%;
+    height: 100%;
+    z-index: 0;
+}
+.ShadowTaskManager-h3-panel-one{
+    position: absolute;
+    top: 30%;
+    left: 1%;
+    z-index: 2;
+    color: white;
+}
+.create-div{
+    background-color: #468EC7;
+    position: absolute;
+    top: 12%;
+    right: 7%;
+    width: 75px;
+    height: 43px;
+}
+.p-create-task{
+    position: absolute;
+    top: 30%;
+    left: 12%;
+}
