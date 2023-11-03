@@ -1,97 +1,110 @@
-#include <iostream>
-#include <cmath>
-#include "/opt/homebrew/Cellar/sdl2/2.26.5/include/SDL2/SDL.h"
+#include <d3d9.h>
+#include <strsafe.h>
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+LPDIRECT3D9         g_pD3D = NULL; // Used to create the D3DDevice
+LPDIRECT3DDEVICE9   g_pd3dDevice = NULL; // Our rendering device
 
-void drawFilledCircle(SDL_Renderer* renderer, int x, int y, int radius) {
-    for (int dy = -radius; dy <= radius; dy++) {
-        int dx = static_cast<int>(std::sqrt(radius * radius - dy * dy));
-        SDL_RenderDrawLine(renderer, x - dx, y + dy, x + dx, y + dy);
+HRESULT InitD3D( HWND hWnd )
+{
+    if( NULL == ( g_pD3D = Direct3DCreate9( D3D_SDK_VERSION ) ) )
+        return E_FAIL;
+
+    D3DPRESENT_PARAMETERS d3dpp;
+    ZeroMemory( &d3dpp, sizeof( d3dpp ) );
+    d3dpp.Windowed = TRUE;
+    d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+    d3dpp.BackBufferFormat = D3DFMT_UNKNOWN;
+
+    if( FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd,
+                                      D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+                                      &d3dpp, &g_pd3dDevice ) ) )
+    {
+        return E_FAIL;
     }
+
+    return S_OK;
 }
 
-void drawStickman(SDL_Renderer* renderer, int x, int y) {
-    // Dibuja la cabeza (círculo)
-    drawFilledCircle(renderer, x, y, 20);
+VOID Cleanup()
+{
+    if( g_pd3dDevice != NULL )
+        g_pd3dDevice->Release();
 
-    // Dibuja el cuerpo (rectángulo)
-    SDL_Rect body = {x - 10, y + 20, 20, 40};
-    SDL_RenderFillRect(renderer, &body);
+    if( g_pD3D != NULL )
+        g_pD3D->Release();
+}
 
-    // Dibuja las extremidades (rectángulos)
-    SDL_Rect limbs[4] = {
-        {x - 30, y + 20, 20, 5},
-        {x + 10, y + 20, 20, 5},
-        {x - 5, y + 60, 5, 30}, // Ajusta la posición Y de la pierna izquierda
-        {x + 10, y + 60, 5, 30} // Ajusta la posición Y de la pierna derecha
+VOID Render()
+{
+    if( NULL == g_pd3dDevice )
+        return;
+
+    // Clear the backbuffer to a blue color
+    g_pd3dDevice->Clear( 0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB( 0, 0, 255 ), 1.0f, 0 );
+
+    // Begin the scene
+    if( SUCCEEDED( g_pd3dDevice->BeginScene() ) )
+    {
+        // Rendering of scene objects can happen here
+
+        // End the scene
+        g_pd3dDevice->EndScene();
+    }
+
+    // Present the backbuffer contents to the display
+    g_pd3dDevice->Present( NULL, NULL, NULL, NULL );
+}
+
+LRESULT WINAPI MsgProc( HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam )
+{
+    switch( msg )
+    {
+        case WM_DESTROY:
+            Cleanup();
+            PostQuitMessage( 0 );
+            return 0;
+
+        case WM_PAINT:
+            Render();
+            ValidateRect( hWnd, NULL );
+            return 0;
+    }
+
+    return DefWindowProc( hWnd, msg, wParam, lParam );
+}
+
+INT WINAPI wWinMain( HINSTANCE hInst, HINSTANCE, LPWSTR, INT )
+{
+    // Register the window class
+    WNDCLASSEX wc =
+    {
+        sizeof( WNDCLASSEX ), CS_CLASSDC, MsgProc, 0L, 0L,
+        GetModuleHandle( NULL ), NULL, NULL, NULL, NULL,
+        L"D3D Tutorial", NULL
     };
-    for (int i = 0; i < 4; i++) {
-        SDL_RenderFillRect(renderer, &limbs[i]);
-    }
-}
+    RegisterClassEx( &wc );
 
+    // Create the application's window
+    HWND hWnd = CreateWindow( L"D3D Tutorial", L"D3D Tutorial 01: CreateDevice",
+                              WS_OVERLAPPEDWINDOW, 100, 100, 300, 300,
+                              NULL, NULL, wc.hInstance, NULL );
 
-int main(int argc, char* argv[]) {
-    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-        std::cerr << "Error al inicializar SDL: " << SDL_GetError() << std::endl;
-        return 1;
-    }
+    // Initialize Direct3D
+    if( SUCCEEDED( InitD3D( hWnd ) ) )
+    {
+        // Show the window
+        ShowWindow( hWnd, SW_SHOWDEFAULT );
+        UpdateWindow( hWnd );
 
-    SDL_Window* window = SDL_CreateWindow("Stickman en SDL2",
-                                          SDL_WINDOWPOS_CENTERED,
-                                          SDL_WINDOWPOS_CENTERED,
-                                          WINDOW_WIDTH,
-                                          WINDOW_HEIGHT,
-                                          SDL_WINDOW_SHOWN);
-
-    if (window == nullptr) {
-        std::cerr << "Error al crear la ventana: " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
-    }
-
-    SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-if (renderer == nullptr) {
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_SOFTWARE);
-}
-
-if (renderer == nullptr) {
-    std::cerr << "Error al crear el renderizador: " << SDL_GetError() << std::endl;
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    return 1;
-}
-
-
-    SDL_Event event;
-    bool running = true;
-
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            }
+        // Enter the message loop
+        MSG msg;
+        while( GetMessage( &msg, NULL, 0, 0 ) )
+        {
+            TranslateMessage( &msg );
+            DispatchMessage( &msg );
         }
-
-        // Limpia el renderizador
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        SDL_RenderClear(renderer);
-
-        // Dibuja el stickman
-        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-        drawStickman(renderer, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-
-        // Presenta el renderizado
-        SDL_RenderPresent(renderer);
-
-        SDL_Delay(10);
     }
 
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-   
-    SDL_Delay(10);
-  return 0;
+    UnregisterClass( L"D3D Tutorial", wc.hInstance );
+    return 0;
 }
