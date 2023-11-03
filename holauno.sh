@@ -1,0 +1,16 @@
+curl 'https://4170004n.index-education.net/pronote/appelfonction/3/4796106/30a00b71ad34de27ad74bc9efa6b4e47' \
+  -H 'authority: 4170004n.index-education.net' \
+  -H 'sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="99", "Google Chrome";v="99"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36' \
+  -H 'sec-ch-ua-platform: "macOS"' \
+  -H 'content-type: application/json' \
+  -H 'accept: */*' \
+  -H 'origin: https://4170004n.index-education.net' \
+  -H 'sec-fetch-site: same-origin' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'referer: https://4170004n.index-education.net/pronote/eleve.html' \
+  -H 'accept-language: en-US,en;q=0.9' \
+  --data-raw '{"session":4796106,"numeroOrdre":"30a00b71ad34de27ad74bc9efa6b4e47","nom":"Authentification","donneesSec":{"donnees":{"connexion":0,"challenge":"26abe22f69ea0e09338201388e4f7335","espace":3}}}' \
+  --compressed

@@ -1,0 +1,51 @@
+// create a div and then duplicate it
+
+function createDiv(){
+	var myDiv = document.createElement("div");
+	myDiv.innerHTML = "hello";
+	document.body.appendChild(myDiv);
+	myDiv.style.color = "red";
+	myDiv.style.backgroundColor = "blue";
+	myDiv.style.width = "100px";
+	myDiv.style.height = "100px";
+	myDiv.style.border = "5px solid black";
+	myDiv.style.textAlign = "center";
+	myDiv.style.margin = "0 auto";
+	myDiv.style.padding = "10px";
+	myDiv.style.fontSize = "30px";
+	myDiv.style.fontFamily = "Arial";
+	myDiv.style.fontWeight = "bold";
+	myDiv.style.fontStyle = "italic";
+	myDiv.style.textDecoration = "underline";
+	myDiv.style.display = "inline-block";
+	myDiv.style.float = "right";
+	myDiv.style.clear = "both";
+	myDiv.style.cursor = "pointer";
+	myDiv.style.borderRadius = "10px";
+	myDiv.style.boxShadow = "0 0 10px black";
+	myDiv.style.transform = "rotate(45deg)";
+	myDiv.style.transition = "all 0.5s ease-in-out";
+	myDiv.style.animation = "move 1s linear infinite";
+	myDiv.style.webkitAnimation = "move 1s linear infinite";
+	myDiv.style.mozAnimation = "move 1s linear infinite";
+	myDiv.style.oAnimation = "move 1s linear infinite";
+	myDiv.style.msAnimation = "move 1s linear infinite";
+	myDiv.style.animationTimingFunction = "linear";
+	myDiv.style.webkitAnimationTimingFunction = "linear";
+	myDiv.style.mozAnimationTimingFunction = "linear";
+	myDiv.style.oAnimationTimingFunction = "linear";
+	myDiv.style.msAnimationTimingFunction = "linear";
+    myDiv.style.animationDuration = "1s";
+    myDiv.style.webkitAnimationDuration = "1s";
+    myDiv.style.mozAnimationDuration = "1s";
+    myDiv.style.oAnimationDuration = "1s";
+    myDiv.style.msAnimationDuration = "1s";
+    myDiv.style.animationIterationCount = "infinite";
+    myDiv.style.webkitAnimationIterationCount = "infinite";
+    myDiv.style.mozAnimationIterationCount = "infinite";
+    myDiv.style.oAnimationIterationCount = "infinite";
+    myDiv.style.msAnimationIterationCount = "infinite";
+    myDiv.style.animationDirection = "alternate";
+    myDiv.style.webkitAnimationDirection = "alternate";
+    myDiv.style.mozAnimationDirection = "alternate";
+}
