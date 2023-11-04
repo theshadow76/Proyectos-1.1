@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "bin/..",
+			"file_exclude_patterns": ["*.sublime-project"]
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name": "Build Debug",
+			"working_dir": "${project_path}",
+			"cmd": "g++ -c src/*.cpp -I include -I C:/src/SDL2.1/include && g++ *.o -o bin/debug/main -L C:/src/SDL2.1/lib -lgmngw64 -lSDL2main -lSDL2 -lSDL2_image && start bin/debug/main", 
+			"selector": "source.c++",
+			"shell": true
+		}
+	]
+}
